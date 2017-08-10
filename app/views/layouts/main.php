@@ -11,6 +11,7 @@
     <link href="/assets/packages/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
     <link href="/assets/packages/tether/dist/css/tether.min.css" type="text/css" rel="stylesheet" />
     <link href="/assets/packages/components-font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="assets/css/app.css" type="text/css" rel="stylesheet" />
 
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>

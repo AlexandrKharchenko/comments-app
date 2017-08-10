@@ -153,7 +153,7 @@ class Router
             if($this->clearStartEndSlash($route['url']) !== $clearUri)
                 continue;
 
-            // TODO: проверить параметры
+            // TODO: Check route valid params
             $findRoute = $route;
             break;
         }
@@ -193,7 +193,7 @@ class Router
     }
 
     private function notFoundRoute($route) {
-        //TODO: Если есть файл 404 вернуть страницу
+        //TODO: If exist 404 file show View
         throw new RouterException("Route {$route} not found");
     }
 

@@ -4,8 +4,7 @@
             <div class="card">
 
                 <div class="card-block">
-                    <h4 class="card-title">Вход</h4>
-                    <?php echo session_id(); ?>
+                    <h4 class="card-title">Login</h4>
                     <auth-login></auth-login>
                 </div>
             </div>

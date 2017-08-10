@@ -13,15 +13,13 @@ use Core\Support\Auth;
 class AuthController extends Controller
 {
 
-    
+
     /**
      * Controller constructor.
      */
     public function __construct()
     {
         parent::__construct();
-
-
     }
 
     public function index()
@@ -32,14 +30,14 @@ class AuthController extends Controller
     public function showLogin()
     {
         $page = ViewFacade::make('/auth/login', ['user' => 'Hello']);
-        $layout = ViewFacade::make('/layouts/auth', ['content' => $page]);
+        $layout = ViewFacade::make('/layouts/main', ['content' => $page]);
         return $layout;
     }
 
     public function showRegister()
     {
         $page = ViewFacade::make('/auth/register');
-        $layout = ViewFacade::make('/layouts/auth', ['content' => $page]);
+        $layout = ViewFacade::make('/layouts/main', ['content' => $page]);
         return $layout;
     }
 
@@ -72,17 +70,15 @@ class AuthController extends Controller
 
             Auth::login($userData);
 
+            // Success login 200 http response
+            return ResponseFacade::json([]);
+
         } else {
             return ResponseFacade::json(['email' => [[
                 'rule' => 'valid',
                 'message' => 'Email or Password not valid',]
             ]] , 400);
         }
-
-
-
-
-
 
     }
 

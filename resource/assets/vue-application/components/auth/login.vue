@@ -7,11 +7,11 @@
         </div>
         <div class="form-group" v-bind:class="{ 'has-error': errors.has('login.password') }">
             <label for="login_psw">Email</label>
-            <input type="password" id="login_psw" name="password" class="form-control" placeholder="Пароль" v-validate="'required'" data-vv-as="пароль" v-model="password" />
+            <input type="password" id="login_psw" name="password" class="form-control" placeholder="password" v-validate="'required'" data-vv-as="password" v-model="password" />
             <span v-show="errors.has('login.password')" class="help-block">{{ errors.first('login.password') }}</span>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Войти</button>
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
         </div>
 
     </form>
@@ -45,8 +45,9 @@
                     this.$http.post('/auth/login', authData ).then(
                         (response) => {
 
-                            if(response.data.login)
-                                window.location  = '/admin';
+
+                            if(response.status === 200)
+                                window.location  = '/comments';
 
 
                         },
@@ -54,7 +55,7 @@
                             $.toast({
                                 icon: 'error',
                                 heading: 'Ошибка',
-                                text: 'Логин или пароль неверный',
+                                text: 'Login or password not valid',
                                 position: 'top-right',
                                 showHideTransition: 'slide',
 

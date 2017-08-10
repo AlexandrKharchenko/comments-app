@@ -187,6 +187,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_resource__["a" /* default */]);
 
 Vue.component('auth-login', __webpack_require__(8)); // Login
 Vue.component('auth-register', __webpack_require__(11)); // Register
+Vue.component('comments-page', __webpack_require__(19)); // Comments main component
 
 var app = new Vue({
     el: '#comments-app'
@@ -15562,12 +15563,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 _this.$http.post('/auth/login', authData).then(function (response) {
 
-                    if (response.data.login) window.location = '/admin';
+                    if (response.status === 200) window.location = '/comments';
                 }, function (error) {
                     $.toast({
                         icon: 'error',
                         heading: 'Ошибка',
-                        text: 'Логин или пароль неверный',
+                        text: 'Login or password not valid',
                         position: 'top-right',
                         showHideTransition: 'slide'
 
@@ -15667,8 +15668,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "password",
       "id": "login_psw",
       "name": "password",
-      "placeholder": "Пароль",
-      "data-vv-as": "пароль"
+      "placeholder": "password",
+      "data-vv-as": "password"
     },
     domProps: {
       "value": (_vm.password)
@@ -15696,7 +15697,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "submit"
     }
-  }, [_vm._v("Войти")])])
+  }, [_vm._v("Login")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -16072,6 +16073,208 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(20),
+  /* template */
+  __webpack_require__(21),
+  /* styles */
+  null,
+  /* scopeId */
+  null,
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "/var/www/comments.app/resource/assets/vue-application/components/comments/comments.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] comments.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7ddd6bde", Component.options)
+  } else {
+    hotAPI.reload("data-v-7ddd6bde", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {},
+    data: function data() {
+        return {
+            authUser: {},
+            newComments: {
+                comment: ''
+            },
+            replyComment: {
+                replyCommentId: null,
+                comment: ''
+            },
+            comments: [],
+            editComments: []
+        };
+    },
+
+    methods: {
+        store: function store(scope) {
+            var _this = this;
+
+            this.$validator.validateAll(scope).then(function (result) {
+                if (!result) return false;
+
+                _this.$http.post('/auth/login').then(function (response) {
+
+                    if (response.status === 200) window.location = '/comments';
+                }, function (error) {
+                    $.toast({
+                        icon: 'error',
+                        heading: 'Ошибка',
+                        text: 'Login or password not valid',
+                        position: 'top-right',
+                        showHideTransition: 'slide'
+
+                    });
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row justify-content-center"
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('form', {
+    attrs: {
+      "action": "",
+      "method": "post",
+      "data-vv-scope": "store"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.store('store')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group",
+    class: {
+      'has-danger': _vm.errors.has('store.comment')
+    }
+  }, [_c('label', {
+    attrs: {
+      "for": "new_comment"
+    }
+  }, [_vm._v("Your comment")]), _vm._v(" "), _c('textarea', {
+    directives: [{
+      name: "validate",
+      rawName: "v-validate",
+      value: ('required'),
+      expression: "'required'"
+    }, {
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.newComments.comment),
+      expression: "newComments.comment"
+    }],
+    staticClass: "form-control flat",
+    attrs: {
+      "id": "new_comment",
+      "name": "comment",
+      "rows": "7",
+      "placeholder": "Your comment",
+      "data-vv-as": "comment"
+    },
+    domProps: {
+      "value": (_vm.newComments.comment)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.newComments.comment = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.errors.has('store.comment')),
+      expression: "errors.has('store.comment')"
+    }],
+    staticClass: "form-control-feedback"
+  }, [_vm._v(_vm._s(_vm.errors.first('store.comment')))])]), _vm._v(" "), _vm._m(0)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "form-group"
+  }, [_c('button', {
+    staticClass: "btn btn-primary btn-block flat",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Comment")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7ddd6bde", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
