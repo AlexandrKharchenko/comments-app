@@ -17,24 +17,34 @@
 
             </form>
         </div>
+
+        <div class="col-md-12">
+            <CommentFeed :comments="comments"></CommentFeed>
+        </div>
     </div>
+
 
 </template>
 
 <script>
+    import CommentFeed from './comments-feed.vue';
     export default {
         mounted() {
-
+            this.getComments();
+        },
+        created(){
+            CommentsEvent.listen('getComments' , () => {
+                this.getComments();
+            });
+        },
+        components: {
+            CommentFeed
         },
         data() {
             return {
                 authUser: {},
                 newComments: {
                     comment: ''
-                },
-                replyComment: {
-                    replyCommentId: null,
-                    comment: '',
                 },
                 comments: [],
                 editComments: [],
@@ -47,13 +57,9 @@
                     if(!result)
                         return false;
 
-                    this.$http.post('/auth/login' ).then(
+                    this.$http.post('/api/comments/store' , this.newComments ).then(
                         (response) => {
-
-
-                            if(response.status === 200)
-                                window.location  = '/comments';
-
+                            this.getComments();
 
                         },
                         (error) => {
@@ -70,7 +76,21 @@
 
 
                 })
+            },
+            getComments(){
+
+                this.$http.get('/api/comments/all').then(
+                    (response) => {
+                        this.comments = response.data;
+
+                    },
+                    (error) => {
+
+                    }
+                );
+
             }
-        }
+        },
+
     }
 </script>
